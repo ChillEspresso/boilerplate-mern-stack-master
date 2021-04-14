@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
-const multer = require('multer');
+const  multer = require('multer');
 const { auth } = require("../middleware/auth");
 
 var storage = multer.diskStorage({
@@ -13,8 +13,8 @@ var storage = multer.diskStorage({
   },
   fileFilter: (req, file, cb) => {
     const ext = path.extname(file.originalname)
-    if (ext !== '.jpg' || ext !== '.png') {
-      return cb(res.status(400).end('only jpg, png are allowed'), false);
+    if (ext !== '.jpg' || ext !== '.png' || ext !== '.svg') {
+      return cb(res.status(400).end('only jpg, png and svg are allowed'), false);
     }
     cb(null, true)
   }
@@ -26,7 +26,7 @@ var upload = multer({ storage: storage }).single("file")
 //             Product
 //=================================
 
-router.get("/uploadImage", auth, (req, res) => {
+router.post("/uploadImage", auth, (req, res) => {
     //after getting image from client
     //we need to save it inside node server
 
