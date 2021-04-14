@@ -1,14 +1,14 @@
 import { Icon } from 'antd';
-import React from 'react'
+import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
-import Axios from 'axios'
-import { response } from 'express';
+import Axios from 'axios';
+
 
 function FileUpload(props) {
 
   const [Images, setImages] = useState([])
 
-  const onDrop = (files) => {
+  const onDrop = (files ) => {
     let formData = new FormData();
     const config = {
       header: {'content-type': 'multipart/form-data'}
@@ -35,7 +35,7 @@ function FileUpload(props) {
         <Dropzone
           onDrop={onDrop}
           multiple={false}
-          maxSize={80000000}
+          maxSize={800000000}
         >
           {({getRootProps, getInputProps}) => (
             <div style={{ 
@@ -44,13 +44,12 @@ function FileUpload(props) {
             }}
               {...getRootProps()}
             >
-              <input {...getInputProps()}/>
+              <input {...getInputProps()} />
               <Icon type="plus" style={{ fontSize: '3rem'}} />
             </div>
           )}
         </Dropzone>
-        <div style={{ 
-          display:'flex', width:'350px', height:'240px', overflowX:'scroll'}}
+        <div style={{ display:'flex', width:'350px', height:'240px', overflowX:'scroll'}}
         >
           <div onClick>
             <img />
