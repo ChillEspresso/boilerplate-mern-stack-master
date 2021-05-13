@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
     }
     cb(null, true)
   }
-})
+});
 
 var upload = multer({
   storage: storage
@@ -46,7 +46,7 @@ router.post('/uploadImage', auth, (req, res) => {
       fileName: res.req.file.filename
     })
   })
-})
+});
 
 router.post('/uploadProduct', auth, (req, res) => {
   //Save all the data from the client
@@ -62,11 +62,10 @@ router.post('/uploadProduct', auth, (req, res) => {
       success: true
     })
   })
-})
+});
 
 router.post('/getProducts', auth, (req, res) => {
 
-  {/* Conditions given to MongoDB to sort Products */}
 let order = req.body.order ? req.body.order : "desc";
 let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
 let limit = req.body.limit ? parseInt(req.body.limit): 100;
@@ -88,6 +87,6 @@ let skip = parseInt(req.body.skip);
       products
     })
   })
-})
+});
 
 module.exports = router
