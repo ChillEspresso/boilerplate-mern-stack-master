@@ -10,6 +10,8 @@ function LandingPage () {
   const [Products, setProducts] = useState([]);
   const [Skip, setSkip] = useState(0);
   const [Limit, setLimit] = useState(8);
+  const [Loading, setLoading] = useState(true);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
 
@@ -19,19 +21,24 @@ function LandingPage () {
     }
 
     getProducts(variables)
-  }, [])
+  }, []);
+
 
   const getProducts = (variables) => {
     Axios.post('/api/product/getProducts', variables)
     .then(response => { 
         if (response.data.success) {
-        setProducts([...Products, response.data.products])
-        console.log(response.data.products)
+        setProducts([...Products, response.data.products]);
+        setLoading(false);
+        console.log(response.data.products);
+        
       } else {
         alert('Failed to fetch products')
       }
     })
   }
+
+  if(Loading) return <h1>Loading...</h1>
 
   const onLoadMore = () => {
     let skip = Skip + Limit;
@@ -77,7 +84,7 @@ function LandingPage () {
       </div>  :
       <div>
         <Row gutter={[16,16]}>
-          {Products.map((product, index) => {})}
+          {/* {Products.map((product, index) => {})} */}
           {renderCards}
         </Row>
       </div>
